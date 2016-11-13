@@ -133,8 +133,24 @@ plot(fem$height_m,fem$weight_kilos)
 weightHeightStats[weightHeightStats$name == 'marie-curie',]$weight_kilos <- 63
 
 # finding Joey's height and JP's weight by extracting
-# a best fit from the sample (w/o Jabba)
+# a best fit from the sample (w/o Jabba) by finding a 
+# linear model for the relation between males weights
+# and height (excluding Jabba)
 males <- weightHeightStats[weightHeightStats$gender=='M',]
+males <- males[complete.cases(males),]
 malesNoJabba <- males[males$weight_kilos < 300,]
+
+lm(malesNoJabba$height_m~malesNoJabba$weight_kilos)
+
+# Call:
+#  lm(formula = malesNoJabba$height_m ~ malesNoJabba$weight_kilos)
+
+# Coefficients:
+#  (Intercept)  malesNoJabba$weight_kilos  
+#   1.149470                   0.008595  
+
+# estimating Joey's height and JP's weight from linear model....
+weightHeightStats[weightHeightStats$name=='Joey',]$height_m <- (77*0.008595)+1.149470
+weightHeightStats[weightHeightStats$name=='JP',]$weight_kilos <- (1.590000-1.149470)/0.008595
 
 weightHeightStats
