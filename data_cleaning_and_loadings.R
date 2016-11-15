@@ -153,4 +153,6 @@ lm(malesNoJabba$height_m~malesNoJabba$weight_kilos)
 weightHeightStats[weightHeightStats$name=='Joey',]$height_m <- (77*0.008595)+1.149470
 weightHeightStats[weightHeightStats$name=='JP',]$weight_kilos <- (1.590000-1.149470)/0.008595
 
+weightHeightStats$name <- gsub("(Mr.\\s+)|([`'])","",weightHeightStats$name,perl=TRUE)
+
 weightHeightStats
